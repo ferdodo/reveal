@@ -39,6 +39,7 @@
 		</cookies-p>
 
 		<cookies-button
+			aria-label="consent-button"
 			on:click={ () => context.consentStorage.save(true) }
 		>
 			Je fais confiance aux personnes qui partagent des énigmes.

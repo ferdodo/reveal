@@ -1,10 +1,9 @@
-import { Puzzle, SavingPuzzleState, SvelteContext, Context, createPuzzleStorageMock, createConsentStorageMock } from "core";
+import { Puzzle, PuzzleFactory, SavingPuzzleState, SvelteContext, Context, createPuzzleStorageMock, createConsentStorageMock } from "core";
 import { Subject } from "rxjs";
 import { uid } from "uid";
 
 export class ContextFactory {
 	contextId: string = uid();
-	savingPuzzle$: Subject<SavingPuzzleState> = new Subject();
 	context: Context;
 
 	constructor() {
@@ -12,6 +11,12 @@ export class ContextFactory {
 			puzzleStorage: createPuzzleStorageMock(),
 			consentStorage: createConsentStorageMock()
 		};
+	}
+
+	addPuzzle(): ContextFactory {
+		const puzzle = new PuzzleFactory().build();
+		this.context.puzzleStorage.save(puzzle);
+		return this;
 	}
 
 	build(): SvelteContext {

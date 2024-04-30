@@ -3,7 +3,7 @@
 	"type": "module",
 	"exports": "./src/index.js",
 	"scripts": {
-		"build": "tsc && svelte-check && vitest run && mkdir -p dist && make"
+		"build": "tsc && svelte-check && vitest run && stryker run && mkdir -p dist && make"
 	},
 	"devDependencies": {
 		"@stryker-mutator/core": "^8.2.6",

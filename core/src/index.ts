@@ -15,6 +15,7 @@ export { puzzleSizeX, puzzleSizeY, puzzleSize } from "./puzzle-size";
 export { getCurrentSlots } from "./get-current-slots";
 export { randomizeArray } from "./randomize-array";
 export { createConsentStorageMock } from "./create-consent-storage-mock";
+export { PuzzleFactory } from "./puzzle-factory";
 export type { Puzzle } from "./types/puzzle";
 export type { Context, SvelteContext } from "./types/context";
 export type { PuzzleStorage } from "./types/puzzle-storage";
