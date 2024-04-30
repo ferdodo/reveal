@@ -1,0 +1,11 @@
+services:
+  front:
+    build: front
+    ports:
+      - "5558:5173"
+
+  core:
+    build:
+      context: core
+      tags:
+        - "reveal-core"

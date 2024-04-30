@@ -1,0 +1,27 @@
+name: Build and Deploy
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ❤️ Build Core
+        working-directory: ./core
+        run: |
+          npm install
+          npm run build
+
+      - name: 📄Build Front
+        working-directory: ./front
+        run: |
+          npm install
+          npm run build
+
+      - name: 🚀 Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: front/dist
