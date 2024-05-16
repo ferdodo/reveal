@@ -10843,13 +10843,15 @@ ${build()}`)(...vals);
     let t1;
     let cookies_p1;
     let t3;
-    let input;
-    let t4;
-    let button;
+    let cookies_p2;
     let t5;
-    let button_disabled_value;
+    let input;
     let t6;
+    let button;
     let t7;
+    let button_disabled_value;
+    let t8;
+    let t9;
     let mounted;
     let dispose;
     let if_block0 = (
@@ -10869,18 +10871,22 @@ ${build()}`)(...vals);
         cookies_p1 = element("cookies-p");
         cookies_p1.textContent = "Fournissez un lien direct vers l'image que vous souhaitez utiliser pour le puzzle.\n			Cliquez sur cr\xE9er, et partagez ensuite le lien de l'\xE9nigme avec les participants.";
         t3 = space();
+        cookies_p2 = element("cookies-p");
+        cookies_p2.innerHTML = `<cookies-a href="https://fr.wikihow.com/obtenir-l%27URL-des-images">Comment obtenir le lien d&#39;une image sur internet ?</cookies-a>`;
+        t5 = space();
         input = element("input");
-        t4 = space();
-        button = element("button");
-        t5 = text("Creer le puzzle");
         t6 = space();
+        button = element("button");
+        t7 = text("Creer le puzzle");
+        t8 = space();
         if (if_block0)
           if_block0.c();
-        t7 = space();
+        t9 = space();
         if (if_block1)
           if_block1.c();
         attr(input, "aria-label", "image-url-input");
         attr(input, "type", "text");
+        attr(input, "placeholder", "https://.../mon-image.jpg");
         button.disabled = button_disabled_value = !/*puzzle*/
         ctx[2] && /*savingPuzzleState*/
         ctx[1] !== "Pending" /* Pending */;
@@ -10899,14 +10905,16 @@ ${build()}`)(...vals);
         append(cookies_panel, t1);
         append(cookies_panel, cookies_p1);
         append(cookies_panel, t3);
+        append(cookies_panel, cookies_p2);
+        append(cookies_panel, t5);
         append(cookies_panel, input);
-        append(cookies_panel, t4);
-        append(cookies_panel, button);
-        append(button, t5);
         append(cookies_panel, t6);
+        append(cookies_panel, button);
+        append(button, t7);
+        append(cookies_panel, t8);
         if (if_block0)
           if_block0.m(cookies_panel, null);
-        append(cookies_panel, t7);
+        append(cookies_panel, t9);
         if (if_block1)
           if_block1.m(cookies_panel, null);
         if (!mounted) {
@@ -10942,7 +10950,7 @@ ${build()}`)(...vals);
           } else {
             if_block0 = create_if_block_22(ctx2);
             if_block0.c();
-            if_block0.m(cookies_panel, t7);
+            if_block0.m(cookies_panel, t9);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -11016,10 +11024,10 @@ ${build()}`)(...vals);
         cookies_p0.textContent = "Le lien de l'image que vous avez fourni ne semble pas fonctionner.";
         t1 = space();
         cookies_p1 = element("cookies-p");
-        cookies_p1.textContent = "Il est possible que le serveur qui h\xE9berge cette image ne permette\n				pas qu'elle soit affich\xE9e sur un autre site web, ce qu'on appelle\n				une erreur de CORS (Cross-Origin Resource Sharing).";
+        cookies_p1.textContent = "Il est possible que le site web qui h\xE9berge cette image ne n'autorise\n				pas qu'elle soit affich\xE9e depuis un autre site web.";
         t3 = space();
         cookies_p2 = element("cookies-p");
-        cookies_p2.textContent = "Pour r\xE9soudre ce probl\xE8me, vous pouvez essayer d'utiliser un proxy CORS.\n				Un proxy CORS agit comme un interm\xE9diaire entre votre site web et l'image,\n				permettant ainsi de contourner les restrictions du serveur. Vous pouvez\n				facilement trouver un service en ligne gratuit pour g\xE9n\xE9rer un lien proxy.";
+        cookies_p2.textContent = "Pour r\xE9soudre ce probl\xE8me, vous pouvez essayer d'utiliser un proxy CORS.\n				Un proxy CORS agit comme un interm\xE9diaire, permettant ainsi de contourner\n				les restrictions. Vous pouvez facilement trouver un service en ligne gratuit\n				pour g\xE9n\xE9rer un lien proxy pour votre lien.";
         t5 = space();
         cookies_p3 = element("cookies-p");
         cookies_p3.textContent = "Il est \xE9galement possible que le lien lui-m\xEAme soit invalide. Veuillez v\xE9rifier\n				que le lien est correct et qu'il s'agit bien d'une image valide.";
@@ -11133,7 +11141,7 @@ ${build()}`)(...vals);
   // ../core/src/default-context-id.ts
   var defaultContextId = "reveal-context";
 
-  // ../core/src/get-current-slots.ts
+  // ../core/src/generate-dates.ts
   function generateDates(puzzle) {
     let last3 = puzzle.startDate;
     const dates = [last3];
@@ -11144,12 +11152,15 @@ ${build()}`)(...vals);
     }
     return randomizeArray(puzzle, dates);
   }
+
+  // ../core/src/get-current-slots.ts
   function* generateCurrentSlots(puzzle, dateStorage) {
     const dates = generateDates(puzzle)[Symbol.iterator]();
     const todayDate = getTodayDate(dateStorage);
     for (let gridX = 1; gridX <= puzzleSizeX; gridX++) {
       for (let gridY = 1; gridY <= puzzleSizeY; gridY++) {
-        const hidden = dates.next().value > todayDate;
+        const slotDate = dates.next().value;
+        const hidden = slotDate > todayDate;
         yield { gridX, gridY, hidden };
       }
     }
@@ -11369,13 +11380,16 @@ ${build()}`)(...vals);
   _random = new WeakMap();
 
   // ../core/src/randomize-array.ts
-  function randomInteger(random, min, max) {
-    return random.integerInRange(min, max - 1);
-  }
   function randomizeArray(puzzle, arr) {
     const seed = JSON.stringify(puzzle);
     const random = new Randoma({ seed });
-    return [...arr].sort(() => randomInteger(random, 0, 2) - 0.5);
+    const result = [...arr];
+    const n = result.length;
+    for (let i = n - 1; i > 0; i--) {
+      const j = random.integerInRange(0, i);
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
   }
 
   // src/create-puzzle-storage.ts
