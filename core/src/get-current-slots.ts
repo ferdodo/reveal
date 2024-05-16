@@ -16,7 +16,6 @@ function * generateCurrentSlots(puzzle: Puzzle, dateStorage: DateStorage) {
 		for (let gridY = 1; gridY <= puzzleSizeY; gridY++) {
 			const slotDate = dates.next().value;
 			const hidden = slotDate > todayDate;
-			console.log({ gridX, gridY, hidden, todayDate, slotDate });
 			yield { gridX, gridY, hidden };
 		}
 	}

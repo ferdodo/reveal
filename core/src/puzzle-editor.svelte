@@ -53,9 +53,14 @@
 			Cliquez sur créer, et partagez ensuite le lien de l'énigme avec les participants.
 		</cookies-p>
 
+		<cookies-p>
+			<cookies-a href="https://fr.wikihow.com/obtenir-l%27URL-des-images"> Comment obtenir le lien d'une image sur internet ? </cookies-a>
+		</cookies-p>
+
 		<input
 			aria-label="image-url-input"
 			type="text"
+			placeholder="https://.../mon-image.jpg"
 			on:input={ e => handleInputValue(setCreatedPuzzleImageURL)(e) } />
 
 		<button
@@ -77,16 +82,15 @@
 			</cookies-p>
 			
 			<cookies-p>
-				Il est possible que le serveur qui héberge cette image ne permette
-				pas qu'elle soit affichée sur un autre site web, ce qu'on appelle
-				une erreur de CORS (Cross-Origin Resource Sharing).
+				Il est possible que le site web qui héberge cette image ne n'autorise
+				pas qu'elle soit affichée depuis un autre site web.
 			</cookies-p>
 
 			<cookies-p>
 				Pour résoudre ce problème, vous pouvez essayer d'utiliser un proxy CORS.
-				Un proxy CORS agit comme un intermédiaire entre votre site web et l'image,
-				permettant ainsi de contourner les restrictions du serveur. Vous pouvez
-				facilement trouver un service en ligne gratuit pour générer un lien proxy.
+				Un proxy CORS agit comme un intermédiaire, permettant ainsi de contourner
+				les restrictions. Vous pouvez facilement trouver un service en ligne gratuit
+				pour générer un lien proxy pour votre lien.
 			</cookies-p>
 
 			<cookies-p>
