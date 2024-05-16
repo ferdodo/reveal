@@ -1,6 +1,5 @@
 export enum SavingPuzzleState {
-	Idle,
-	Pending,
-	CorsError,
-	UnknownError
+	Idle = "Idle",
+	Pending = "Pending",
+	UnknownError = "UnknownError"
 }

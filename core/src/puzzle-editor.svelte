@@ -20,7 +20,7 @@
 	export let contextId = defaultContextId;
 
 	const context = getContext(contextId) as Context;
-	const todayDate = getTodayDate();
+	const todayDate = getTodayDate(context.dateStorage);
 	let savingPuzzleState: SavingPuzzleState = getSavingPuzzle();
 	const subSav = savingPuzzle$.subscribe((value: SavingPuzzleState) => savingPuzzleState = value);
 	let puzzle: Puzzle | null = null;
@@ -38,6 +38,7 @@
 
 	onDestroy(() => sub.unsubscribe());
 	onDestroy(() => subSav.unsubscribe());
+	onDestroy(() => sub3.unsubscribe());
 </script>
 
 {#if !savedPuzzle}

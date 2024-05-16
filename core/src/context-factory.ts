@@ -1,6 +1,13 @@
-import { Puzzle, PuzzleFactory, SavingPuzzleState, SvelteContext, Context, createPuzzleStorageMock, createConsentStorageMock } from "core";
-import { Subject } from "rxjs";
 import { uid } from "uid";
+
+import {
+	PuzzleFactory,
+	SvelteContext,
+	Context,
+	createPuzzleStorageMock,
+	createConsentStorageMock,
+	createDateStorageMock
+} from "core";
 
 export class ContextFactory {
 	contextId: string = uid();
@@ -9,7 +16,8 @@ export class ContextFactory {
 	constructor() {
 		this.context = {
 			puzzleStorage: createPuzzleStorageMock(),
-			consentStorage: createConsentStorageMock()
+			consentStorage: createConsentStorageMock(),
+			dateStorage: createDateStorageMock()
 		};
 	}
 

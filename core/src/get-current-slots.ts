@@ -1,10 +1,14 @@
-import { Slot, puzzleSizeX, puzzleSizeY, puzzleSize, Puzzle, getTodayDate, randomizeArray } from "core";
-
-function incrementDate(dateString: string): string {
-	const date = new Date(dateString);
-	date.setDate(date.getDate() + 1);
-	return date.toISOString().slice(0, 10);
-}
+import {
+	Slot,
+	puzzleSizeX,
+	puzzleSizeY,
+	puzzleSize,
+	Puzzle,
+	getTodayDate,
+	randomizeArray,
+	DateStorage,
+	incrementDate
+} from "core";
 
 function generateDates(puzzle: Puzzle) {
 	let last = puzzle.startDate;
@@ -19,9 +23,9 @@ function generateDates(puzzle: Puzzle) {
 	return randomizeArray(puzzle, dates);
 }
 
-function * generateCurrentSlots(puzzle: Puzzle) {
+function * generateCurrentSlots(puzzle: Puzzle, dateStorage: DateStorage) {
 	const dates = generateDates(puzzle)[Symbol.iterator]();
-	const todayDate = getTodayDate();
+	const todayDate = getTodayDate(dateStorage);
 
 	for (let gridX = 1; gridX <= puzzleSizeX; gridX++) {
 		for (let gridY = 1; gridY <= puzzleSizeY; gridY++) {
@@ -33,9 +37,9 @@ function * generateCurrentSlots(puzzle: Puzzle) {
 
 let currentSlots;
 
-export function getCurrentSlots(puzzle: Puzzle): Slot[] {
+export function getCurrentSlots(puzzle: Puzzle, dateStorage: DateStorage): Slot[] {
 	if (currentSlots === undefined) {
-		return currentSlots = [...generateCurrentSlots(puzzle)];
+		return currentSlots = [...generateCurrentSlots(puzzle, dateStorage)];
 	}
 
 	return currentSlots;

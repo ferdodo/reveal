@@ -5,11 +5,8 @@
 		Context,
 		Puzzle,
 		defaultContextId,
-		createdPuzzle$,
 		getCurrentSlots,
 		Slot,
-		puzzleSizeX,
-		puzzleSizeY
 	} from "core";
 
 	export let dataTestid = undefined;
@@ -34,7 +31,7 @@
 	const sub2 = context.puzzleStorage.watch()
 		.subscribe(function(p) {
 			puzzle = p;
-			slots = getCurrentSlots(p);
+			slots = getCurrentSlots(p, context.dateStorage);
 		});
 
 	const sub3 = context.consentStorage.watch()
@@ -56,7 +53,7 @@
 	context.puzzleStorage.read()
 		.then(function(p) {
 			puzzle = p;
-			slots = p && getCurrentSlots(p);
+			slots = p && getCurrentSlots(p, context.dateStorage);
 
 			if (!puzzle) {
 				return;
