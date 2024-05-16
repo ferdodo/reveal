@@ -2,26 +2,11 @@ import {
 	Slot,
 	puzzleSizeX,
 	puzzleSizeY,
-	puzzleSize,
 	Puzzle,
 	getTodayDate,
-	randomizeArray,
 	DateStorage,
-	incrementDate
+	generateDates
 } from "core";
-
-function generateDates(puzzle: Puzzle) {
-	let last = puzzle.startDate;
-	const dates = [last];
-
-	for (let i = 1; i < puzzleSize; i++) {
-		const next = incrementDate(last);
-		dates.push(next);
-		last = next;
-	}
-
-	return randomizeArray(puzzle, dates);
-}
 
 function * generateCurrentSlots(puzzle: Puzzle, dateStorage: DateStorage) {
 	const dates = generateDates(puzzle)[Symbol.iterator]();
@@ -29,7 +14,9 @@ function * generateCurrentSlots(puzzle: Puzzle, dateStorage: DateStorage) {
 
 	for (let gridX = 1; gridX <= puzzleSizeX; gridX++) {
 		for (let gridY = 1; gridY <= puzzleSizeY; gridY++) {
-			const hidden = dates.next().value > todayDate;
+			const slotDate = dates.next().value;
+			const hidden = slotDate > todayDate;
+			console.log({ gridX, gridY, hidden, todayDate, slotDate });
 			yield { gridX, gridY, hidden };
 		}
 	}

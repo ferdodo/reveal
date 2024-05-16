@@ -4,7 +4,7 @@ export class PuzzleFactory {
 	build(): Puzzle {
 		return {
 			imageURL: "",
-			startDate: ""
+			startDate: "2021-01-01"
 		}
 	}
 }

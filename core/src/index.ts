@@ -11,6 +11,7 @@ export { default as Consent } from "./consent.svelte";
 export { default as PuzzleDisplay } from "./puzzle-display.svelte";
 export { default as PuzzleEditor } from "./puzzle-editor.svelte";
 export { defaultContextId } from "./default-context-id";
+export { generateDates } from "./generate-dates";
 export { getCurrentSlots } from "./get-current-slots";
 export { getSavingPuzzle, saveEditedPuzzle, savingPuzzle$ } from "./saving-puzzle";
 export { getTodayDate } from "./get-today-date";
